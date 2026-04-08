@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://co3guah270pab"]
+
+[ext_resource type="Script" uid="uid://xmbs44ylfwg2" path="res://Player/player.gd" id="1_4ntmi"]
+[ext_resource type="Texture2D" uid="uid://doko0684pbmvg" path="res://Player/assets/ship_E.png" id="2_btcbx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gwnis"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_btcbx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_4ntmi")
+
+[node name="Sprite2" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.8, 0.141176, 0.27451, 1)
+sprite_frames = SubResource("SpriteFrames_gwnis")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+scale = Vector2(0.9, 0.9)
+sprite_frames = SubResource("SpriteFrames_gwnis")
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(0, -24, 24, 16, 16, 24, 0, 16, -16, 24, -24, 16)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 7
+
+[node name="Collision" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(1, -14, 15, 12, 10, 18, -10, 18, -15, 12, -1, -14)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

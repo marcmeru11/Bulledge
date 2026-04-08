@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cr4eh86snkcn0"]
+
+[ext_resource type="Script" uid="uid://dmmhgln4485sf" path="res://generatorController/generator_controller.gd" id="1_sh8wt"]
+[ext_resource type="PackedScene" uid="uid://clrcodjxqxvc1" path="res://genrators/generator_circles_simple/generator_circles_simple.tscn" id="2_7ymel"]
+[ext_resource type="PackedScene" uid="uid://buurtypn63txo" path="res://genrators/generator_spiral/generator_spiral.tscn" id="3_phqhb"]
+[ext_resource type="PackedScene" uid="uid://cebfgsfvvfqb0" path="res://genrators/generator_function/generator_function.tscn" id="4_prdpl"]
+
+[node name="Generator_controller" type="Node"]
+script = ExtResource("1_sh8wt")
+spawner_A = ExtResource("2_7ymel")
+spawner_B = ExtResource("3_phqhb")
+spawner_C = ExtResource("4_prdpl")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

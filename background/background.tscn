@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfy2m41x0v5g0"]
+
+[ext_resource type="Texture2D" uid="uid://b0w1tujfi1h8d" path="res://background/a36b6f94-9f3a-42c8-9b73-ce65daec0b04.png" id="1_p8qmt"]
+
+[node name="Background" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+modulate = Color(0.2484, 0.2484, 0.2484, 0.733333)
+position = Vector2(961, 540.5)
+scale = Vector2(1.07143, 1.08301)
+texture = ExtResource("1_p8qmt")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8f6lwuptrkdw"]
+
+[ext_resource type="Script" uid="uid://chjm1vgfombcs" path="res://game_saver/game_reset.gd" id="1_mofsm"]
+
+[node name="GameReset" type="Node2D"]
+script = ExtResource("1_mofsm")

@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://b2r1rbavkog8h"]
+
+[ext_resource type="PackedScene" uid="uid://co3guah270pab" path="res://Player/player.tscn" id="1_o6mkr"]
+[ext_resource type="PackedScene" uid="uid://cr4eh86snkcn0" path="res://generatorController/generator_controller.tscn" id="2_qmtf6"]
+[ext_resource type="PackedScene" uid="uid://bfy2m41x0v5g0" path="res://background/background.tscn" id="2_wqlfs"]
+[ext_resource type="PackedScene" uid="uid://bwlb32h6vg3ja" path="res://Menus/GameOverMenu/game_over_menu.tscn" id="5_nk1il"]
+[ext_resource type="PackedScene" uid="uid://ct3br6aytwyky" path="res://GameInterface/game_interface.tscn" id="6_d6qko"]
+[ext_resource type="PackedScene" uid="uid://d0dwwu8sx6n8x" path="res://GameController/game_controller.tscn" id="6_nk1il"]
+[ext_resource type="Script" uid="uid://2240xxpylea5" path="res://Level/area_2d.gd" id="8_22cqp"]
+[ext_resource type="PackedScene" uid="uid://dxrryimw4vr2e" path="res://game_saver/game_saver.tscn" id="9_wqlfs"]
+[ext_resource type="PackedScene" uid="uid://csuq01jwwass4" path="res://game_limits/game_limits.tscn" id="10_py82k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqlfs"]
+size = Vector2(1026, 1078.25)
+
+[node name="Level" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("2_wqlfs")]
+z_index = -1
+z_as_relative = false
+
+[node name="GameInterface" parent="." instance=ExtResource("6_d6qko")]
+layer = 128
+
+[node name="Player" parent="." instance=ExtResource("1_o6mkr")]
+position = Vector2(960, 540)
+
+[node name="Controllers" type="Node" parent="."]
+
+[node name="GameController" parent="Controllers" node_paths=PackedStringArray("gameOverMenu", "generator_controller", "game_interface", "game_saver") instance=ExtResource("6_nk1il")]
+gameOverMenu = NodePath("../GameOverMenu")
+generator_controller = NodePath("../Generator_controller")
+game_interface = NodePath("../../GameInterface")
+game_saver = NodePath("../GameSaver")
+
+[node name="Generator_controller" parent="Controllers" node_paths=PackedStringArray("player") instance=ExtResource("2_qmtf6")]
+player = NodePath("../../Player")
+
+[node name="GameOverMenu" parent="Controllers" instance=ExtResource("5_nk1il")]
+visible = false
+
+[node name="GameSaver" parent="Controllers" instance=ExtResource("9_wqlfs")]
+
+[node name="Limits" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Limits"]
+collision_mask = 7
+script = ExtResource("8_22cqp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/Area2D"]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(940, 540)
+shape = SubResource("RectangleShape2D_wqlfs")
+
+[node name="GameLimits" parent="Limits" instance=ExtResource("10_py82k")]
+slide_on_ceiling = false
+floor_stop_on_slope = false
+floor_block_on_wall = false
+safe_margin = 10.0
+
+[connection signal="death" from="Player" to="Controllers/GameController" method="_on_player_death"]
+[connection signal="body_exited" from="Limits/Area2D" to="Limits/Area2D" method="_on_body_exited"]

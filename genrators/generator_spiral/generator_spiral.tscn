@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://buurtypn63txo"]
+
+[ext_resource type="Texture2D" uid="uid://bjxtnde6w7j6p" path="res://genrators/assets/meteor_large.png" id="1_4j3n0"]
+[ext_resource type="Script" uid="uid://kmryjrsfrhdu" path="res://genrators/generator_spiral/generator_spiral.gd" id="1_vxivd"]
+[ext_resource type="PackedScene" uid="uid://b2mbo8u4rc70e" path="res://genrators/proyectiles/proyectile.tscn" id="2_ukn0g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8hfuj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4j3n0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ukpdi"]
+radius = 20.2237
+
+[sub_resource type="Animation" id="Animation_6be4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ukn0g"]
+resource_name = "despawn"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jpcwi"]
+resource_name = "spawn"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_biv1x"]
+_data = {
+&"RESET": SubResource("Animation_6be4f"),
+&"despawn": SubResource("Animation_ukn0g"),
+&"spawn": SubResource("Animation_jpcwi")
+}
+
+[node name="generator_spiral" type="CharacterBody2D" groups=["Enemy"]]
+modulate = Color(1, 0.552941, 0, 1)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_vxivd")
+bullet_scene = ExtResource("2_ukn0g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8hfuj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_ukpdi")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Dead_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="shooterTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_biv1x")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Dead_Timer" to="." method="_on_dead_timer_timeout"]
+[connection signal="timeout" from="shooterTimer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

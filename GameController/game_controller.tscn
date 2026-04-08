@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0dwwu8sx6n8x"]
+
+[ext_resource type="Script" uid="uid://ccfl4q062cwnu" path="res://GameController/game_controller.gd" id="1_tinjj"]
+
+[node name="GameController" type="Node"]
+script = ExtResource("1_tinjj")
+
+[node name="StageTimer" type="Timer" parent="."]
+
+[node name="timeTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="StageTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="timeTimer" to="." method="_on_time_timer_timeout"]

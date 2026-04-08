@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2mbo8u4rc70e"]
+
+[ext_resource type="Texture2D" uid="uid://bs7ux8cexeib7" path="res://genrators/proyectiles/assets/star_tiny.png" id="1_1r1gh"]
+[ext_resource type="Script" uid="uid://08yv6h4nsski" path="res://genrators/proyectiles/proyectile.gd" id="1_ft6cn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ft6cn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1r1gh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bknjd"]
+size = Vector2(10.7071, 10.7071)
+
+[node name="Proyectile" type="CharacterBody2D" groups=["Enemy", "Proyectile"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_ft6cn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ft6cn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_bknjd")
