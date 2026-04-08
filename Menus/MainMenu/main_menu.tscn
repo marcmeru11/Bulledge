@@ -25,16 +25,16 @@ texture = ExtResource("2_qq57v")
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 299.0
-offset_top = 95.0
+offset_top = 159.0
 offset_right = 1552.0
-offset_bottom = 336.0
+offset_bottom = 400.0
 theme = ExtResource("3_7f67a")
 theme_override_colors/font_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0.8, 0.141176, 0.27451, 1)
 theme_override_constants/outline_size = 30
 theme_override_fonts/font = ExtResource("4_lkur8")
 theme_override_font_sizes/font_size = 200
-text = "BulletHell"
+text = "Bulledge"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -45,9 +45,9 @@ anchor_top = 0.25
 anchor_right = 0.662
 anchor_bottom = 0.759
 offset_left = -8.0
-offset_top = 138.0
+offset_top = 212.0
 offset_right = 19.0
-offset_bottom = -165.0
+offset_bottom = -91.0
 
 [node name="Play" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
