@@ -42,4 +42,29 @@ jobs:
           auto_connect_socket=true
           handle_tree_quit=true
           cache_player_on_identify=true
-          debounce_timer_seconds=1
+          debounce_timer_seconds=1.0
+
+          [continuity]
+          enabled=true
+
+          [player_auth]
+          auto_start_session=true
+          EOF
+
+      - name: Web Build
+        run: |
+          mkdir -p build/web
+          godot --headless --verbose --export-release "Web" build/web/index.html
+
+      - name: Add COOP/COEP headers
+        run: |
+          # Usamos curl (recién instalado) para bajar el worker necesario para Godot 4
+          curl -fsSL https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js -o build/web/coi-serviceworker.min.js
+          # Inyectamos el script en el index.html generado por Godot
+          sed -i 's/<script/<script src="coi-serviceworker.min.js"><\/script><script/g' build/web/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build/web
+          branch: gh-pages
