@@ -18,10 +18,26 @@ jobs:
         with:
           lfs: true
 
+      - name: Install dependencies
+        run: |
+          apt-get update && apt-get install -y libfontconfig1
+
       - name: Setup templates
         run: |
-          mkdir -p ~/.local/share/godot/export_templates/4.6.2.stable
-          cp -r /root/.local/share/godot/templates/4.6.2.stable/* ~/.local/share/godot/export_templates/4.6.2.stable/ || true
+          # Crear la ruta donde Godot busca las templates
+          TEMPLATE_PATH=~/.local/share/godot/export_templates/4.6.2.stable
+          mkdir -p "$TEMPLATE_PATH"
+          
+          # Buscar donde están las templates en la imagen y copiarlas
+          # Intentamos varias rutas comunes en contenedores CI
+          if [ -d "/root/.local/share/godot/templates/4.6.2.stable" ]; then
+            cp -r /root/.local/share/godot/templates/4.6.2.stable/* "$TEMPLATE_PATH/"
+          elif [ -d "/root/.local/share/godot/export_templates/4.6.2.stable" ]; then
+            cp -r /root/.local/share/godot/export_templates/4.6.2.stable/* "$TEMPLATE_PATH/"
+          fi
+          
+          # Verificar si se copiaron (esto ayuda al log)
+          ls -l "$TEMPLATE_PATH"
 
       - name: Inject Talo API Key
         run: |
@@ -43,6 +59,7 @@ jobs:
       - name: Web Build
         run: |
           mkdir -p build/web
+          # Usamos --export-release y nos aseguramos de que el preset se llame "Web"
           godot --headless --verbose --export-release "Web" build/web/index.html
 
       - name: Add COOP/COEP headers
