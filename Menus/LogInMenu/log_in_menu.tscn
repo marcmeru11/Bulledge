@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://kobt5bi3cy31"]
+
+[ext_resource type="Script" uid="uid://74aa72rqvejl" path="res://Menus/LogInMenu/log_in_menu.gd" id="1_djnmj"]
+[ext_resource type="Texture2D" uid="uid://b0w1tujfi1h8d" path="res://background/a36b6f94-9f3a-42c8-9b73-ce65daec0b04.png" id="2_cvlb2"]
+[ext_resource type="Theme" uid="uid://dru4qms5eioi2" path="res://Themes/label_theme.tres" id="3_3rtw6"]
+[ext_resource type="FontFile" uid="uid://cin12ruum6753" path="res://Themes/Vipnagorgialla Bd.otf" id="4_eo87g"]
+[ext_resource type="Theme" uid="uid://bvkpyubiph031" path="res://Themes/Input_theme.tres" id="5_tn8wp"]
+[ext_resource type="Theme" uid="uid://sif4h085m4cx" path="res://Themes/Button_theme.tres" id="6_0huqd"]
+
+[node name="log_in_menu" type="Control" unique_id=1193655281]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_djnmj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1750035345]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=1493312889]
+modulate = Color(0.505344, 0.505344, 0.505344, 1)
+position = Vector2(973.5, 550.5)
+scale = Vector2(1.08761, 1.08105)
+texture = ExtResource("2_cvlb2")
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1359433335]
+offset_left = 352.0
+offset_right = 1536.0
+offset_bottom = 241.0
+theme = ExtResource("3_3rtw6")
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0.8, 0.141176, 0.27451, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("4_eo87g")
+theme_override_font_sizes/font_size = 150
+text = "Bulledge"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1521058262]
+anchors_preset = -1
+anchor_left = 0.275
+anchor_top = 0.347
+anchor_right = 0.67200005
+anchor_bottom = 0.759
+offset_left = 36.160034
+offset_top = -19.76001
+offset_right = -0.20007324
+offset_bottom = -173.72003
+
+[node name="Username" type="LineEdit" parent="CanvasLayer/VBoxContainer" unique_id=2022016036]
+layout_mode = 2
+theme = ExtResource("5_tn8wp")
+placeholder_text = "Username"
+
+[node name="Password" type="LineEdit" parent="CanvasLayer/VBoxContainer" unique_id=1697809506]
+layout_mode = 2
+theme = ExtResource("5_tn8wp")
+placeholder_text = "Password"
+secret = true
+
+[node name="ErrorLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=824534098]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_eo87g")
+theme_override_font_sizes/font_size = 25
+
+[node name="LogIn" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1056093592]
+layout_mode = 2
+theme = ExtResource("6_0huqd")
+text = "LOG IN"
+
+[node name="back" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=148527591]
+layout_mode = 2
+theme = ExtResource("6_0huqd")
+text = "BACK TO MAIN MENU"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/LogIn" to="." method="_on_log_in_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/back" to="." method="_on_back_pressed"]

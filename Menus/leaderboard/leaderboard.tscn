@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dncoecawujbla"]
+
+[ext_resource type="Texture2D" uid="uid://b0w1tujfi1h8d" path="res://background/a36b6f94-9f3a-42c8-9b73-ce65daec0b04.png" id="1_wb5k2"]
+[ext_resource type="Script" uid="uid://55ocfu3iuaus" path="res://Menus/leaderboard/leaderboard.gd" id="1_ycs4l"]
+[ext_resource type="PackedScene" uid="uid://deflhvc4gdpqu" path="res://Menus/leaderboard/leaderboardItem.tscn" id="2_ugft5"]
+[ext_resource type="Theme" uid="uid://sif4h085m4cx" path="res://Themes/Button_theme.tres" id="2_ycs4l"]
+[ext_resource type="Theme" uid="uid://dru4qms5eioi2" path="res://Themes/label_theme.tres" id="4_vkcqt"]
+
+[node name="leaderboard" type="Control" unique_id=847560525]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ycs4l")
+item_scene = ExtResource("2_ugft5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=629404316]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=2008153562]
+modulate = Color(0.505344, 0.505344, 0.505344, 1)
+position = Vector2(973.5, 550.5)
+scale = Vector2(1.08761, 1.08105)
+texture = ExtResource("1_wb5k2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1223969161]
+anchors_preset = -1
+anchor_left = 0.298
+anchor_top = 0.25
+anchor_right = 0.662
+anchor_bottom = 0.759
+offset_left = -8.000061
+offset_top = -170.0
+offset_right = 19.0
+offset_bottom = -119.72003
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1583713168]
+layout_mode = 2
+theme = ExtResource("4_vkcqt")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/VBoxContainer" unique_id=1760574661]
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 2
+
+[node name="List" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/ScrollContainer" unique_id=1395058879]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=18066036]
+layout_mode = 2
+theme = ExtResource("2_ycs4l")
+text = "Back to main menu"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Back" to="." method="_on_back_pressed"]

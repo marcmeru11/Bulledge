@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b41qklpugxd01"]
+[gd_scene format=3 uid="uid://b41qklpugxd01"]
 
 [ext_resource type="Script" uid="uid://esgv6orgoqbg" path="res://Menus/MainMenu/main_menu.gd" id="1_3e31c"]
 [ext_resource type="Texture2D" uid="uid://b0w1tujfi1h8d" path="res://background/a36b6f94-9f3a-42c8-9b73-ce65daec0b04.png" id="2_qq57v"]
@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://dru4qms5eioi2" path="res://Themes/label_theme.tres" id="3_7f67a"]
 [ext_resource type="FontFile" uid="uid://cin12ruum6753" path="res://Themes/Vipnagorgialla Bd.otf" id="4_lkur8"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1161957548]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,15 +15,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3e31c")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1732436370]
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=311077114]
 modulate = Color(0.505344, 0.505344, 0.505344, 1)
 position = Vector2(973.5, 550.5)
 scale = Vector2(1.08761, 1.08105)
 texture = ExtResource("2_qq57v")
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1442651924]
 offset_left = 299.0
 offset_top = 159.0
 offset_right = 1552.0
@@ -38,7 +38,7 @@ text = "Bulledge"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=877809914]
 anchors_preset = -1
 anchor_left = 0.298
 anchor_top = 0.25
@@ -49,15 +49,32 @@ offset_top = 212.0
 offset_right = 19.0
 offset_bottom = -91.0
 
-[node name="Play" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="loggedIn" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1893870780]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_lkur8")
+horizontal_alignment = 1
+
+[node name="Register" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=966596432]
+layout_mode = 2
+theme = ExtResource("2_wotb1")
+text = "REGISTER"
+
+[node name="log_in" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=2039161209]
+layout_mode = 2
+theme = ExtResource("2_wotb1")
+text = "LOG IN"
+
+[node name="play" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=61009003]
 layout_mode = 2
 theme = ExtResource("2_wotb1")
 text = "PLAY"
 
-[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="leaderboard" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=505113944]
 layout_mode = 2
 theme = ExtResource("2_wotb1")
-text = "QUIT"
+text = "LEADERBOARD"
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Register" to="." method="_on_register_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/log_in" to="." method="_on_log_in_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/leaderboard" to="." method="_on_leaderboard_pressed"]

@@ -19,6 +19,10 @@ run/main_scene="uid://b41qklpugxd01"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Talo="*uid://bpmdn8oc34pg7"
+
 [display]
 
 window/size/viewport_width=1920
@@ -31,13 +35,19 @@ project/assembly_name="BulletHell"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/virtual_joystick/plugin.cfg")
+enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 
 [global_group]
 
 Player=""
 Enemy=""
 Proyectile=""
+
+[importer_defaults]
+
+animation_library={
+&"animation/fps": 60.0
+}
 
 [input]
 
