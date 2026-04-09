@@ -18,57 +18,28 @@ jobs:
         with:
           lfs: true
 
-      - name: Install dependencies
+      - name: Install dependencies (curl and fontconfig)
         run: |
-          apt-get update && apt-get install -y libfontconfig1
+          apt-get update && apt-get install -y curl libfontconfig1
 
       - name: Setup templates
         run: |
-          # Crear la ruta donde Godot busca las templates
           TEMPLATE_PATH=~/.local/share/godot/export_templates/4.6.2.stable
           mkdir -p "$TEMPLATE_PATH"
-          
-          # Buscar donde están las templates en la imagen y copiarlas
-          # Intentamos varias rutas comunes en contenedores CI
           if [ -d "/root/.local/share/godot/templates/4.6.2.stable" ]; then
             cp -r /root/.local/share/godot/templates/4.6.2.stable/* "$TEMPLATE_PATH/"
           elif [ -d "/root/.local/share/godot/export_templates/4.6.2.stable" ]; then
             cp -r /root/.local/share/godot/export_templates/4.6.2.stable/* "$TEMPLATE_PATH/"
           fi
-          
-          # Verificar si se copiaron (esto ayuda al log)
-          ls -l "$TEMPLATE_PATH"
 
       - name: Inject Talo API Key
         run: |
           mkdir -p addons/talo
-          echo 'access_key="${{ secrets.TALO_API_KEY }}"' > addons/talo/settings.cfg
-          echo 'api_url="https://api.trytalo.com"' >> addons/talo/settings.cfg
-          echo 'socket_url="wss://api.trytalo.com"' >> addons/talo/settings.cfg
-          echo 'auto_connect_socket=true' >> addons/talo/settings.cfg
-          echo 'handle_tree_quit=true' >> addons/talo/settings.cfg
-          echo 'cache_player_on_identify=true' >> addons/talo/settings.cfg
-          echo 'debounce_timer_seconds=1.0' >> addons/talo/settings.cfg
-          echo '' >> addons/talo/settings.cfg
-          echo '[continuity]' >> addons/talo/settings.cfg
-          echo 'enabled=true' >> addons/talo/settings.cfg
-          echo '' >> addons/talo/settings.cfg
-          echo '[player_auth]' >> addons/talo/settings.cfg
-          echo 'auto_start_session=true' >> addons/talo/settings.cfg
-
-      - name: Web Build
-        run: |
-          mkdir -p build/web
-          # Usamos --export-release y nos aseguramos de que el preset se llame "Web"
-          godot --headless --verbose --export-release "Web" build/web/index.html
-
-      - name: Add COOP/COEP headers
-        run: |
-          curl -fsSL https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js -o build/web/coi-serviceworker.min.js
-          sed -i 's/<script/<script src="coi-serviceworker.min.js"><\/script><script/g' build/web/index.html
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build/web
-          branch: gh-pages
+          cat <<EOF > addons/talo/settings.cfg
+          access_key="${{ secrets.TALO_API_KEY }}"
+          api_url="https://api.trytalo.com"
+          socket_url="wss://api.trytalo.com"
+          auto_connect_socket=true
+          handle_tree_quit=true
+          cache_player_on_identify=true
+          debounce_timer_seconds=1
