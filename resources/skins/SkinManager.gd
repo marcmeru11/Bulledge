@@ -18,34 +18,49 @@ func load_skins_manually():
 			var skin = load(full_path)
 			if skin is SkinData:
 				all_skins.append(skin)
-	print("[SkinManager] Skins cargadas en memoria: ", all_skins.size())
+	print("[SkinManager] Skins cargadas: ", all_skins.size())
 
 func fetch_highscore_from_talo() -> float:
 	if Talo.current_player:
-		print("[SkinManager] Consultando Talo para el jugador ID: ", Talo.current_player.id)
-		
 		var options := Talo.leaderboards.GetEntriesOptions.new()
 		options.player_id = Talo.current_player.id
 		
-		# CAMBIA "main" si tu tabla tiene otro nombre interno
 		var res = await Talo.leaderboards.get_entries("Month", options)
 		
 		if res.entries.size() > 0:
 			player_highscore = res.entries[0].score
-			print("[SkinManager] ¡ÉXITO! Score recuperado de Talo: ", player_highscore)
 		else:
-			print("[SkinManager] El jugador no tiene entradas en la tabla 'main'. Score = 0")
 			player_highscore = 0.0
-	else:
-		print("[SkinManager] ERROR: No hay jugador identificado en Talo.")
-		player_highscore = 0.0
 	
 	return player_highscore
 
 func is_skin_unlocked(skin: SkinData) -> bool:
 	if skin.required_score <= 0:
 		return true
+	return float(player_highscore) >= float(skin.required_score)
+
+func get_active_skin() -> SkinData:
+	if selected_skin != null:
+		return selected_skin
 	
-	var unlocked = player_highscore >= skin.required_score
-	print("[SkinManager] Comprobando skin '", skin.skin_name, "': Record(", player_highscore, ") >= Req(", skin.required_score, ") -> ", unlocked)
-	return unlocked
+	return await load_skin_from_talo()
+
+func load_skin_from_talo() -> SkinData:
+	if Talo.current_player:
+		var skin_name = Talo.current_player.get_prop("selected_skin")
+		if skin_name:
+			for s in all_skins:
+				if s.skin_name == skin_name:
+					selected_skin = s
+					return s
+	
+	if all_skins.size() > 0:
+		selected_skin = all_skins[0]
+		return selected_skin
+		
+	return null
+
+func save_skin_to_talo(skin_to_save: SkinData):
+	if Talo.current_player:
+		Talo.current_player.set_prop("selected_skin", skin_to_save.skin_name)
+		selected_skin = skin_to_save
