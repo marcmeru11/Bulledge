@@ -35,7 +35,7 @@ func fetch_highscore_from_talo() -> float:
 	return player_highscore
 
 func is_skin_unlocked(skin: SkinData) -> bool:
-	if skin.required_score <= 0:
+	if skin.required_score * 30 <= 0:
 		return true
 	return float(player_highscore) >= float(skin.required_score)
 
@@ -43,7 +43,7 @@ func get_active_skin() -> SkinData:
 	if selected_skin != null:
 		return selected_skin
 	
-	return await load_skin_from_talo()
+	return load_skin_from_talo()
 
 func load_skin_from_talo() -> SkinData:
 	if Talo.current_player:
