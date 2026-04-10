@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func _on_back_pressed() -> void:
 	# Forzamos el cierre de cualquier sesión provisional antes de irnos
-	if Talo.current_player:
+	if Talo.current_player != null:
 		Talo.player_auth.logout()
 	
 	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
