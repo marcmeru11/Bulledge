@@ -1,6 +1,6 @@
 extends Control
 
-@onready var grid = $CanvasLayer/ScrollContainer/GridContainer
+@onready var grid = $CanvasLayer/VBoxContainer/ScrollContainer/GridContainer
 
 func _ready():
 	display_skins()
@@ -44,3 +44,7 @@ func _on_skin_selected(skin: SkinData):
 	print("Seleccionada y guardada: ", skin.skin_name)
 	# Opcional: Volver al menú principal o cerrar el selector
 	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+
+
+func _on_back_pressed() -> void:
+		get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")

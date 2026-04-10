@@ -77,7 +77,7 @@ text = "LEADERBOARD"
 [node name="skin" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1503475962]
 layout_mode = 2
 theme = ExtResource("2_wotb1")
-text = "PLAY"
+text = "SELECT SKIN"
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Register" to="." method="_on_register_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/log_in" to="." method="_on_log_in_pressed"]
