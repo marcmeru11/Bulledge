@@ -4,7 +4,8 @@ extends Control
 @onready var login_btn: Button = $CanvasLayer/VBoxContainer/log_in
 @onready var play_btn: Button = $CanvasLayer/VBoxContainer/play
 @onready var leaderboard_btn: Button = $CanvasLayer/VBoxContainer/leaderboard
-# Nueva referencia a tu Label
+@onready var skin_btn: Button = $CanvasLayer/VBoxContainer/skin
+
 @onready var logged_in_label: Label = $CanvasLayer/VBoxContainer/loggedIn
 
 func _ready() -> void:
@@ -23,6 +24,7 @@ func update_menu_visibility() -> void:
 	
 	play_btn.visible = is_logged
 	leaderboard_btn.visible = is_logged
+	skin_btn.visible = is_logged
 	
 	register_btn.visible = !is_logged
 	login_btn.visible = !is_logged
@@ -56,3 +58,7 @@ func _on_play_pressed() -> void:
 func _on_logout_pressed() -> void:
 	Talo.player_auth.logout()
 	update_menu_visibility()
+
+
+func _on_skin_pressed() -> void:
+	get_tree().change_scene_to_file("res://Menus/SkinSelector/skin_selector_menu.tscn")

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dw16e6gm32or"]
+
+[ext_resource type="Script" uid="uid://c6nvyl8bfj5de" path="res://Menus/SkinSelector/skin_selector_menu.gd" id="1_3x3em"]
+
+[node name="skin_seletor_menu" type="Control" unique_id=181908654]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3x3em")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=426975564]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=479675136]
+layout_mode = 2
