@@ -28,7 +28,7 @@ func fetch_highscore_from_talo() -> float:
 		options.player_id = Talo.current_player.id
 		
 		# CAMBIA "main" si tu tabla tiene otro nombre interno
-		var res = await Talo.leaderboards.get_entries("main", options)
+		var res = await Talo.leaderboards.get_entries("Month", options)
 		
 		if res.entries.size() > 0:
 			player_highscore = res.entries[0].score
