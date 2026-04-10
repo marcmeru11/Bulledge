@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkinData" format=3 uid="uid://dan82k58d8ofk"]
+
+[ext_resource type="Script" uid="uid://n4300eji8id" path="res://resources/skins/SkinData.gd" id="1_7uxqy"]
+[ext_resource type="Texture2D" uid="uid://b0jed2dbp22l3" path="res://resources/skins/spaceship.png" id="2_dkk0c"]
+
+[resource]
+script = ExtResource("1_7uxqy")
+skin_name = "spaceship"
+required_score = 30.0
+texture = ExtResource("2_dkk0c")
+metadata/_custom_type_script = "uid://n4300eji8id"

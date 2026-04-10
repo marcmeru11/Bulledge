@@ -12,7 +12,8 @@ func load_skins_manually():
 	# --- IMPORTANTE: Añade aquí los nombres exactos de tus archivos .tres ---
 	var skin_files = [
 		"default.tres",
-		"white.tres"
+		"white.tres",
+		"spaceship.tres"
 	]
 	
 	all_skins.clear() # Limpiamos por si acaso
@@ -35,13 +36,20 @@ func load_skins_manually():
 
 # --- FUNCIONES DE PERSISTENCIA (TALO) ---
 
-func save_skin_to_talo(skin_name: String):
-	if Talo.current_player:
-		Talo.current_player.set_prop("selected_skin", skin_name)
-		# Forzamos el guardado de propiedades si tu versión de Talo lo requiere
-		# Talo.current_player.save_props() 
-		print("Skin guardada en la nube: ", skin_name)
+# Ahora solo pide la skin, el record lo busca él solo
+func save_skin_to_talo(skin_to_save: SkinData):
+	if !Talo.current_player: return
 
+	# El SkinManager busca el record directamente del GameController
+	var current_highscore = Talo.current_highscore 
+
+	if current_highscore >= skin_to_save.required_score:
+		Talo.current_player.set_prop("selected_skin", skin_to_save.skin_name)
+		selected_skin = skin_to_save
+		print("Skin permitida y guardada: ", skin_to_save.skin_name)
+	else:
+		print("¡INTENTO DE EQUIPAR SKIN BLOQUEADA! Puntos insuficientes.")
+		
 func load_skin_from_talo() -> SkinData:
 	if Talo.current_player:
 		var skin_name = Talo.current_player.get_prop("selected_skin")

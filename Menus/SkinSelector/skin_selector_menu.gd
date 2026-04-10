@@ -1,49 +1,63 @@
 extends Control
 
-@onready var grid = $CanvasLayer/VBoxContainer/ScrollContainer/GridContainer
+# Ruta al GridContainer basándome en tu imagen de jerarquía
+@onready var grid = $CanvasLayer/ScrollContainer/GridContainer
 
 func _ready():
+	# Esperamos un frame para que el SkinManager tenga tiempo de cargar todo
+	await get_tree().process_frame
 	display_skins()
 
 func display_skins():
-	# Limpiamos el grid por si acaso
+	if not grid:
+		print("Error: No se encontró el GridContainer")
+		return
+	
+	# Limpiamos los botones que pudieran existir de antes
 	for child in grid.get_children():
 		child.queue_free()
-	
-	# Obtenemos el record actual para saber qué bloquear
-	# Accedemos al high_score que guardamos en el GameController o Talo
-	var current_record = 0.0
-	if Talo.current_player:
-		# Aquí podrías pedir el record a Talo o pasarle el dato desde el GameController
-		pass 
+
+	print("Cargando menú para ", SkinManager.all_skins.size(), " skins.")
 
 	for skin in SkinManager.all_skins:
 		var btn = Button.new()
-		btn.custom_minimum_size = Vector2(150, 150)
 		
-		# Ponemos la imagen de la skin en el botón
-		btn.icon = skin.texture
+		# Configuración visual del botón
+		btn.custom_minimum_size = Vector2(200, 230) # Tamaño cuadrado grande
 		btn.expand_icon = true
+		btn.icon = skin.texture
 		btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
 		
-		# Lógica de bloqueo: si requiere más puntos de los que tenemos
-		# (Asumiendo que tienes el high_score accesible)
-		# if skin.required_score > current_record:
-		#	btn.disabled = true
-		#	btn.modulate = Color(0.3, 0.3, 0.3) # Oscurecer
+		# --- LÓGICA DE BLOQUEO ---
+		# Usamos la función que creamos en el SkinManager
+		var esta_desbloqueada = SkinManager.is_skin_unlocked(skin)
 		
-		# Conectamos el clic del botón
-		btn.pressed.connect(_on_skin_selected.bind(skin))
+		if esta_desbloqueada:
+			# Si está desbloqueada, el botón funciona normal
+			btn.text = skin.skin_name
+			btn.modulate = Color(1, 1, 1) # Color normal (blanco)
+			btn.disabled = false
+			
+			# Conectamos el clic para guardar la skin
+			btn.pressed.connect(_on_skin_selected.bind(skin))
+		else:
+			# Si está bloqueada, desactivamos el botón y lo ponemos oscuro
+			btn.disabled = true
+			btn.modulate = Color(0.3, 0.3, 0.3, 0.8) # Gris oscuro y algo transparente
+			btn.text = "BLOQUEADO\nReq: " + str(skin.required_score) + " pts"
 		
 		grid.add_child(btn)
 
 func _on_skin_selected(skin: SkinData):
-	SkinManager.selected_skin = skin
-	SkinManager.save_skin_to_talo(skin.skin_name)
-	print("Seleccionada y guardada: ", skin.skin_name)
-	# Opcional: Volver al menú principal o cerrar el selector
-	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+	# Guardamos la skin seleccionada en Talo y en la variable local
+	SkinManager.save_skin_to_talo(skin)
+	
+	print("Has equipado: ", skin.skin_name)
+	
+	# Cambiamos a la escena del juego (ajusta la ruta a tu escena real)
+	get_tree().change_scene_to_file("res://scenes/world.tscn")
 
-
-func _on_back_pressed() -> void:
-		get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+# Función para el botón físico de "BACK TO MAIN MENU" si lo tienes conectado por señal
+func _on_back_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
