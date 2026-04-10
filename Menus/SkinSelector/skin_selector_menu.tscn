@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://dw16e6gm32or"]
 
 [ext_resource type="Script" uid="uid://c6nvyl8bfj5de" path="res://Menus/SkinSelector/skin_selector_menu.gd" id="1_3x3em"]
+[ext_resource type="Texture2D" uid="uid://b0w1tujfi1h8d" path="res://background/a36b6f94-9f3a-42c8-9b73-ce65daec0b04.png" id="2_gwb28"]
+[ext_resource type="Theme" uid="uid://dru4qms5eioi2" path="res://Themes/label_theme.tres" id="3_5ao8b"]
+[ext_resource type="FontFile" uid="uid://cin12ruum6753" path="res://Themes/Vipnagorgialla Bd.otf" id="4_wml2i"]
 
 [node name="skin_seletor_menu" type="Control" unique_id=181908654]
 layout_mode = 3
@@ -11,10 +14,39 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3x3em")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=426975564]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=285115677]
 
-[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=479675136]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=2023474192]
+modulate = Color(0.505344, 0.505344, 0.505344, 1)
+position = Vector2(973.5, 550.5)
+scale = Vector2(1.08761, 1.08105)
+texture = ExtResource("2_gwb28")
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=250654111]
+offset_left = 367.0
+offset_top = -7.0
+offset_right = 1620.0
+offset_bottom = 234.0
+theme = ExtResource("3_5ao8b")
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0.8, 0.141176, 0.27451, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("4_wml2i")
+theme_override_font_sizes/font_size = 200
+text = "Bulledge"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer" unique_id=426975564]
+anchors_preset = -1
+anchor_left = 0.20700002
+anchor_top = 0.24400002
+anchor_right = 0.813
+anchor_bottom = 0.906
+offset_left = 0.55996704
+offset_top = -0.52001953
+offset_right = 0.039916992
+offset_bottom = 0.5199585
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ScrollContainer" unique_id=479675136]
 layout_mode = 2
