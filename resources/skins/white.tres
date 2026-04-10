@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SkinData" format=3 uid="uid://bduu87fkc6hnr"]
+
+[ext_resource type="Script" uid="uid://n4300eji8id" path="res://resources/skins/SkinData.gd" id="1_3llqh"]
+[ext_resource type="Texture2D" uid="uid://doko0684pbmvg" path="res://resources/skins/white.png" id="2_8clyu"]
+
+[resource]
+script = ExtResource("1_3llqh")
+skin_name = "white"
+texture = ExtResource("2_8clyu")
+metadata/_custom_type_script = "uid://n4300eji8id"
