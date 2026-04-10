@@ -5,9 +5,9 @@ signal death
 # --- NUEVA VARIABLE PARA SKINS ---
 var current_skin: SkinData 
 
-@export var friction = 0.9
-@export var acceleration = 750
-@export var max_speed = 1500
+@export var friction: float = 0.9
+@export var acceleration:float = 750
+@export var max_speed:float = 1500
 
 var dead = false
 

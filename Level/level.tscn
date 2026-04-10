@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2r1rbavkog8h"]
+[gd_scene format=3 uid="uid://b2r1rbavkog8h"]
 
 [ext_resource type="PackedScene" uid="uid://co3guah270pab" path="res://Player/player.tscn" id="1_o6mkr"]
 [ext_resource type="PackedScene" uid="uid://cr4eh86snkcn0" path="res://generatorController/generator_controller.tscn" id="2_qmtf6"]
@@ -13,47 +13,46 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqlfs"]
 size = Vector2(1026, 1078.25)
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" unique_id=217900346]
 
-[node name="Background" parent="." instance=ExtResource("2_wqlfs")]
+[node name="Background" parent="." unique_id=659509669 instance=ExtResource("2_wqlfs")]
 z_index = -1
 z_as_relative = false
 
-[node name="GameInterface" parent="." instance=ExtResource("6_d6qko")]
+[node name="GameInterface" parent="." unique_id=1844819450 instance=ExtResource("6_d6qko")]
 layer = 128
 
-[node name="Player" parent="." instance=ExtResource("1_o6mkr")]
+[node name="Player" parent="." unique_id=80919328 instance=ExtResource("1_o6mkr")]
 position = Vector2(960, 540)
 
-[node name="Controllers" type="Node" parent="."]
+[node name="Controllers" type="Node" parent="." unique_id=533938227]
 
-[node name="GameController" parent="Controllers" node_paths=PackedStringArray("gameOverMenu", "generator_controller", "game_interface", "game_saver") instance=ExtResource("6_nk1il")]
+[node name="GameController" parent="Controllers" unique_id=1993920260 node_paths=PackedStringArray("gameOverMenu", "generator_controller", "game_interface") instance=ExtResource("6_nk1il")]
 gameOverMenu = NodePath("../GameOverMenu")
 generator_controller = NodePath("../Generator_controller")
 game_interface = NodePath("../../GameInterface")
-game_saver = NodePath("../GameSaver")
 
-[node name="Generator_controller" parent="Controllers" node_paths=PackedStringArray("player") instance=ExtResource("2_qmtf6")]
+[node name="Generator_controller" parent="Controllers" unique_id=1664865937 node_paths=PackedStringArray("player") instance=ExtResource("2_qmtf6")]
 player = NodePath("../../Player")
 
-[node name="GameOverMenu" parent="Controllers" instance=ExtResource("5_nk1il")]
+[node name="GameOverMenu" parent="Controllers" unique_id=993848344 instance=ExtResource("5_nk1il")]
 visible = false
 
-[node name="GameSaver" parent="Controllers" instance=ExtResource("9_wqlfs")]
+[node name="GameSaver" parent="Controllers" unique_id=1636606413 instance=ExtResource("9_wqlfs")]
 
-[node name="Limits" type="Node" parent="."]
+[node name="Limits" type="Node" parent="." unique_id=289761714]
 
-[node name="Area2D" type="Area2D" parent="Limits"]
+[node name="Area2D" type="Area2D" parent="Limits" unique_id=208411303]
 collision_mask = 7
 script = ExtResource("8_22cqp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/Area2D" unique_id=974187612]
 light_mask = 7
 visibility_layer = 7
 position = Vector2(940, 540)
 shape = SubResource("RectangleShape2D_wqlfs")
 
-[node name="GameLimits" parent="Limits" instance=ExtResource("10_py82k")]
+[node name="GameLimits" parent="Limits" unique_id=1371951972 instance=ExtResource("10_py82k")]
 slide_on_ceiling = false
 floor_stop_on_slope = false
 floor_block_on_wall = false
