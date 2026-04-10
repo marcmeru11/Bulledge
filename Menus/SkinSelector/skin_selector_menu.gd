@@ -44,7 +44,7 @@ func display_skins():
 		else:
 			# Si está bloqueada, desactivamos el botón y lo ponemos oscuro
 			btn.disabled = true
-			btn.modulate = Color(0.3, 0.3, 0.3, 0.8) # Gris oscuro y algo transparente
+			btn.modulate = Color(0.5, 0.5, 0.5, 0.8) # Gris oscuro y algo transparente
 			btn.text = "BLOQUEADO\nReq: " + str(skin.required_score) + " pts"
 		
 		grid.add_child(btn)
@@ -54,10 +54,9 @@ func _on_skin_selected(skin: SkinData):
 	SkinManager.save_skin_to_talo(skin)
 	
 	print("Has equipado: ", skin.skin_name)
-	
-	# Cambiamos a la escena del juego (ajusta la ruta a tu escena real)
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+
 
 # Función para el botón físico de "BACK TO MAIN MENU" si lo tienes conectado por señal
-func _on_back_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+func _on_back_pressed():
+	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")

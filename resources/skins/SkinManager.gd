@@ -38,7 +38,7 @@ func load_skins_manually():
 
 # Ahora solo pide la skin, el record lo busca él solo
 func save_skin_to_talo(skin_to_save: SkinData):
-	if !Talo.current_player: return
+	if !(Talo.current_player != null and Talo.current_alias != null): return
 
 	# El SkinManager busca el record directamente del GameController
 	var current_highscore = Talo.current_highscore 
@@ -51,7 +51,7 @@ func save_skin_to_talo(skin_to_save: SkinData):
 		print("¡INTENTO DE EQUIPAR SKIN BLOQUEADA! Puntos insuficientes.")
 		
 func load_skin_from_talo() -> SkinData:
-	if Talo.current_player:
+	if Talo.current_player != null and Talo.current_alias != null:
 		var skin_name = Talo.current_player.get_prop("selected_skin")
 		
 		if skin_name:
@@ -79,7 +79,7 @@ func get_best_unlocked_skin(current_highscore: float) -> SkinData:
 func is_skin_unlocked(skin: SkinData) -> bool:
 	var record = 0.0
 	
-	if Talo.current_player:
+	if Talo.current_player != null and Talo.current_alias != null:
 		record = Talo.current_highscore
 	
 	return record >= skin.required_score
