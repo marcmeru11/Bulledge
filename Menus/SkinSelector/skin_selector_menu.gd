@@ -1,7 +1,7 @@
 extends Control
 
 # Ruta al GridContainer basándome en tu imagen de jerarquía
-@onready var grid = $CanvasLayer/ScrollContainer/GridContainer
+@onready var grid = $CanvasLayer/VBoxContainer/ScrollContainer/GridContainer
 
 func _ready():
 	# Esperamos un frame para que el SkinManager tenga tiempo de cargar todo

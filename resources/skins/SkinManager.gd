@@ -75,3 +75,11 @@ func get_best_unlocked_skin(current_highscore: float) -> SkinData:
 			if skin.required_score > best_skin.required_score:
 				best_skin = skin
 	return best_skin
+	
+func is_skin_unlocked(skin: SkinData) -> bool:
+	var record = 0.0
+	
+	if Talo.current_player:
+		record = Talo.current_highscore
+	
+	return record >= skin.required_score
