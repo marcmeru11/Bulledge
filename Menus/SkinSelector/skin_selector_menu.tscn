@@ -24,25 +24,31 @@ scale = Vector2(1.08761, 1.08105)
 texture = ExtResource("2_gwb28")
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=250654111]
-offset_left = 367.0
-offset_top = -7.0
-offset_right = 1620.0
-offset_bottom = 234.0
+offset_left = -43.0
+offset_top = -4.0
+offset_right = 1939.0
+offset_bottom = 237.0
 theme = ExtResource("3_5ao8b")
 theme_override_colors/font_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0.8, 0.141176, 0.27451, 1)
-theme_override_constants/outline_size = 30
+theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("4_wml2i")
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 100
 text = "SKIN SELECTOR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1077571024]
-offset_left = 398.0
-offset_top = 263.0
-offset_right = 438.0
-offset_bottom = 303.0
+anchors_preset = -1
+anchor_left = 0.32900003
+anchor_top = 0.266
+anchor_right = 0.671
+anchor_bottom = 0.614
+offset_left = 0.3199463
+offset_top = -0.27999878
+offset_right = -0.32006836
+offset_bottom = 96.880005
+grow_horizontal = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/VBoxContainer" unique_id=426975564]
 custom_minimum_size = Vector2(600, 400)

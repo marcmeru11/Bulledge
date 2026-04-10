@@ -19,7 +19,6 @@ func display_skins():
 
 	for skin in SkinManager.all_skins:
 		var btn = Button.new()
-		btn.text = skin.skin_name
 		btn.custom_minimum_size = Vector2(150, 150)
 		
 		# Ponemos la imagen de la skin en el botón
