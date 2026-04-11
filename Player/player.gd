@@ -2,79 +2,74 @@ extends CharacterBody2D
 
 signal death
 
-# --- VARIABLES DE SKIN ---
 var current_skin: SkinData 
 
 @export var friction: float = 0.9
 @export var acceleration: float = 750
 @export var max_speed: float = 1500
+@export var dash_active: bool = false
+@export var dash_cooldown: float = 1.0
+@export var teleport_distance: float = 200.0
 
 var dead = false
+var dash_available: bool = true
+
+@onready var dash_particles = $DashParticles
 
 func _ready() -> void:
 	await get_tree().process_frame
-	
-	print("[Player] Solicitando skin al SkinManager...")
-	var skin_a_usar = await SkinManager.get_active_skin()
-	
+	var skin_a_usar = SkinManager.get_active_skin()
 	if skin_a_usar:
 		apply_skin(skin_a_usar)
-		print("[Player] Skin aplicada con éxito: ", skin_a_usar.skin_name)
-	else:
-		print("[Player] ERROR: No se pudo cargar ninguna skin, usando textura por defecto del nodo.")
 
-# --- FUNCIÓN PARA APLICAR LA SKIN ---
 func apply_skin(data: SkinData) -> void:
-	if data == null: 
-		return
-		
+	if data == null: return
 	current_skin = data
-	
-	# Verificamos que el nodo Sprite2D existe para evitar errores
 	if has_node("Sprite2D"):
 		$Sprite2D.texture = data.texture
-		# Si tienes un color de estela o partículas en tu SkinData, podrías usar:
-		# $Sprite2D.modulate = data.trail_color 
-	else:
-		print("[Player] ERROR: No se encontró el nodo Sprite2D")
 
 func _physics_process(delta: float) -> void:
 	if dead: return
+	var control_directions = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
 	
-	move(Input.get_axis("left", "right"), Input.get_axis("up", "down"), delta)
+	if dash_active: dash(control_directions)
+	move(control_directions, delta)
 	apply_max_speed()
 	move_and_slide()
 
-func apply_friction(mode: bool):
-	if mode:
+func move(control_directions: Vector2, delta: float):
+	if control_directions.x != 0:
+		velocity.x += acceleration * delta * control_directions.x
+	else:
 		velocity.x *= friction
+		
+	if control_directions.y != 0:
+		velocity.y += acceleration * delta * control_directions.y
 	else:
 		velocity.y *= friction
 
-func move(x: float, y: float, delta: float):
-	if dead:
-		return
-		
-	# Movimiento Horizontal
-	if x != 0:
-		velocity.x += acceleration * delta * x
-	else:
-		apply_friction(true)
-		
-	# Movimiento Vertical
-	if y != 0:
-		velocity.y += acceleration * delta * y
-	else:
-		apply_friction(false)
+func dash(control_directions: Vector2):
+	if Input.is_key_pressed(KEY_SPACE) or Input.is_action_just_pressed("ui_accept"):
+		if not dead and dash_available and control_directions != Vector2.ZERO:
+			dash_available = false
+			dash_active = true
+			
+			if dash_particles:
+				dash_particles.restart()
+				dash_particles.emitting = true
+			
+			var teleport_vector = control_directions.normalized() * teleport_distance
+			move_and_collide(teleport_vector)
+			
+			await get_tree().create_timer(dash_cooldown).timeout
+			dash_available = true
+			dash_active = false
 
 func apply_max_speed():
-	# clamp() devuelve el valor limitado, hay que reasignarlo
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	velocity.y = clamp(velocity.y, -max_speed, max_speed)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	# Asumiendo que el Area2D es un hijo del Player para detectar choques
 	if body.is_in_group("Enemy") and not dead:
 		dead = true
 		death.emit()
-		print("[Player] Ha muerto.")

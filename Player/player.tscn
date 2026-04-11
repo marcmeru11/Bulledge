@@ -5,11 +5,30 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l8h54"]
 load_path = "res://.godot/imported/default.png-7c4ec26f7f1778e5084b3071c24b68ca.ctex"
 
+[sub_resource type="Gradient" id="Gradient_l8h54"]
+offsets = PackedFloat32Array(0, 0.5653595, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.77254903, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_py82k"]
+gradient = SubResource("Gradient_l8h54")
+
+[sub_resource type="Curve" id="Curve_4ntmi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99462366, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_py82k"]
+curve = SubResource("Curve_4ntmi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_btcbx"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 0.0
+scale_curve = SubResource("CurveTexture_py82k")
+color_ramp = SubResource("GradientTexture1D_py82k")
+
 [node name="Player" type="CharacterBody2D" unique_id=1101622734 groups=["Player"]]
 script = ExtResource("1_4ntmi")
-friction = null
-acceleration = null
-max_speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1575199185]
 scale = Vector2(0.85, 0.85)
@@ -25,5 +44,14 @@ collision_mask = 7
 
 [node name="Collision" type="CollisionPolygon2D" parent="Area2D" unique_id=901225857]
 polygon = PackedVector2Array(1, -14, 15, 12, 10, 18, -10, 18, -15, 12, -1, -14)
+
+[node name="DashParticles" type="GPUParticles2D" parent="." unique_id=1955291385]
+emitting = false
+amount = 50
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_btcbx")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
