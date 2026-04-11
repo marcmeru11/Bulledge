@@ -18,7 +18,7 @@ jobs:
         with:
           lfs: true
 
-      - name: Install dependencies (curl and fontconfig)
+      - name: Install dependencies
         run: |
           apt-get update && apt-get install -y curl libfontconfig1
 
@@ -56,12 +56,17 @@ jobs:
           mkdir -p build/web
           godot --headless --verbose --export-release "Web" build/web/index.html
 
-      - name: Add COOP/COEP headers
+      - name: Add COOP/COEP headers and Favicon
         run: |
-          # Usamos curl (recién instalado) para bajar el worker necesario para Godot 4
+          # Download COOP/COEP worker for Godot 4
           curl -fsSL https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js -o build/web/coi-serviceworker.min.js
-          # Inyectamos el script en el index.html generado por Godot
+          
+          # Inject service worker script into index.html
           sed -i 's/<script/<script src="coi-serviceworker.min.js"><\/script><script/g' build/web/index.html
+          
+          # Copy favicon from assets and inject it into the HTML head
+          cp assets/favicon.png build/web/
+          sed -i 's/<\/head>/<link rel="icon" type="image\/png" href="favicon.png"><\/head>/g' build/web/index.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
