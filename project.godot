@@ -29,6 +29,7 @@ SkinManager="*uid://c8x2f2i6ehfp6"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
