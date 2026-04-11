@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_7uxqy")
-skin_name = "spaceship"
+skin_name = "Spaceship"
 required_score = 30.0
 texture = ExtResource("2_dkk0c")
 metadata/_custom_type_script = "uid://n4300eji8id"
