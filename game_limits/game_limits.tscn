@@ -1,23 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://csuq01jwwass4"]
+[gd_scene format=3 uid="uid://csuq01jwwass4"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_q3fpw"]
 specular_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_kl0uc"]
 
-[node name="GameLimits" type="CharacterBody2D"]
+[node name="GameLimits" type="CharacterBody2D" unique_id=95858535]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1726486665]
 build_mode = 1
-polygon = PackedVector2Array(425, 0, 1453, 0, 1453, 1010, 425, 1010)
+polygon = PackedVector2Array(425, 0, 1453, 0, 1459, 1080, 430, 1078)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1478104172]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(172.5, 522)
 scale = Vector2(507, 1242)
 texture = SubResource("CanvasTexture_q3fpw")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1633068750]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(1884.88, 621)
 scale = Vector2(864.25, 1406)

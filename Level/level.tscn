@@ -24,9 +24,6 @@ layer = 128
 
 [node name="Player" parent="." unique_id=80919328 instance=ExtResource("1_o6mkr")]
 position = Vector2(960, 540)
-friction = 0.9
-acceleration = 750.0
-max_speed = 1500.0
 
 [node name="Controllers" type="Node" parent="." unique_id=533938227]
 
