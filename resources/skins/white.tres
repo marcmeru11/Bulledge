@@ -6,5 +6,6 @@
 [resource]
 script = ExtResource("1_3llqh")
 skin_name = "White Arrow"
+required_score = 5.0
 texture = ExtResource("2_8clyu")
 metadata/_custom_type_script = "uid://n4300eji8id"

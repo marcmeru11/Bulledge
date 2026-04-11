@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkinData" format=3 uid="uid://clhafk40sg83s"]
+
+[ext_resource type="Script" uid="uid://n4300eji8id" path="res://resources/skins/SkinData.gd" id="1_mxwbb"]
+[ext_resource type="Texture2D" uid="uid://d1yrjkys10ckj" path="res://resources/skins/Bulledge-green.png" id="2_36rdk"]
+
+[resource]
+script = ExtResource("1_mxwbb")
+skin_name = "Green Bulledge Arrow"
+required_score = 20.0
+texture = ExtResource("2_36rdk")
+metadata/_custom_type_script = "uid://n4300eji8id"

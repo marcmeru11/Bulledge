@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func load_skins_manually():
 	var path = "res://resources/skins/"
-	var skin_files = ["default.tres", "white.tres", "spaceship.tres"]
+	var skin_files = ["default.tres", "white.tres", "default-blue.tres", "default-green.tres", "spaceship.tres"]
 	
 	all_skins.clear()
 	for file_name in skin_files:

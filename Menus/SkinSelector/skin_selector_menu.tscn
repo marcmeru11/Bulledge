@@ -56,7 +56,7 @@ layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/VBoxContainer/ScrollContainer" unique_id=479675136]
 layout_mode = 2
-columns = 4
+columns = 3
 
 [node name="back" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1846415741]
 layout_mode = 2
