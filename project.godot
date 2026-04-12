@@ -17,6 +17,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Bulledge"
 run/main_scene="uid://b41qklpugxd01"
 config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://ck1b1p2lxqy4w"
 config/icon="res://icon.svg"
 
 [autoload]
