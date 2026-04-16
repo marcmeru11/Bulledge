@@ -7,7 +7,7 @@ func _ready() -> void:
 	$CanvasLayer/VBoxContainer/Back.disabled = true
 
 func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file("res://Level/level.tscn")
+	restart()
 
 func enable(): 
 	visible = true
@@ -29,9 +29,20 @@ func set_scores(high: float, current: float):
 
 
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+	back()
 	
 
 func _physics_process(_delta: float) -> void:
-	if visible and Input.is_action_just_pressed("reset"):
-		get_tree().change_scene_to_file("res://Level/level.tscn")
+	if visible:
+		if Input.is_action_just_pressed("reset"):
+			restart()
+		if Input.is_action_just_pressed("esc"):
+			back()
+		
+		
+func back() -> void:
+	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+
+
+func restart() -> void:
+	get_tree().change_scene_to_file("res://Level/level.tscn")

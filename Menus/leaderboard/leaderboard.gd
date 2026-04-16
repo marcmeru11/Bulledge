@@ -9,8 +9,12 @@ extends Control
 func _ready() -> void:
 	load_leaderboard()
 
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("esc"):
+		back()
+
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+	back()
 
 func load_leaderboard() -> void:
 	# 1. Limpieza total
@@ -87,3 +91,8 @@ func add_separator() -> void:
 	sep.text = "..."
 	sep.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	items_list.add_child(sep)
+
+
+func back() -> void:
+	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+	

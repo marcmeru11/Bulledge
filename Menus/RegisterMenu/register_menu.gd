@@ -2,22 +2,30 @@ extends Control
 
 # Usamos rutas directas para evitar el error de "%"
 @onready var username: LineEdit = $CanvasLayer/VBoxContainer/Username
-@onready var email: LineEdit = $CanvasLayer/VBoxContainer/Email
 @onready var password: LineEdit = $CanvasLayer/VBoxContainer/Password
 @onready var password_confirmation: LineEdit = $CanvasLayer/VBoxContainer/Password_confirmation
 @onready var validation_label: Label = $CanvasLayer/VBoxContainer/ErrorLabel
 @onready var register_button: Button = $CanvasLayer/VBoxContainer/Register
 
 func _on_back_pressed() -> void:
-	# Forzamos el cierre de cualquier sesión provisional antes de irnos
-	if Talo.current_player != null:
-		Talo.player_auth.logout()
+	back()
+	
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("esc"):
+		back()
+	if Input.is_action_just_pressed("enter"):
+		register()
+
+func back() -> void:
+	Talo.player_auth.logout()
 	
 	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
-	
+	 
 	
 func _on_register_pressed() -> void:
-	# 1. Validaciones básicas
+	register()
+
+func register() -> void:
 	if username.text.is_empty() or password.text.is_empty():
 		validation_label.text = "Rellena todos los campos"
 		return

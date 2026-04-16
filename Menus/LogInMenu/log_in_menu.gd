@@ -11,14 +11,20 @@ signal verification_required
 func _ready() -> void:
 	validation_label.text = ""
 
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("esc"):
+		back()
+	if Input.is_action_just_pressed("enter"):
+		login()
+		
+
 func _on_back_pressed() -> void:
-	# Forzamos el cierre de cualquier sesión provisional antes de irnos
-	if Talo.current_player != null:
-		Talo.player_auth.logout()
-	
-	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+	back()
 	
 func _on_log_in_pressed() -> void:
+	login()
+	
+func login() -> void:
 	# 1. Validar que no estén vacíos
 	if username_input.text.strip_edges().is_empty() or password_input.text.strip_edges().is_empty():
 		validation_label.text = "Por favor, rellena todos los campos"
@@ -37,6 +43,7 @@ func _on_log_in_pressed() -> void:
 			var error = Talo.player_auth.last_error
 			if error and error.get_code() == TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
 				validation_label.text = "Usuario o contraseña incorrectos"
+				password_input.text = ""
 			else:
 				validation_label.text = error.get_string() if error else "Error de conexión"
 		
@@ -46,7 +53,13 @@ func _on_log_in_pressed() -> void:
 			
 		Talo.player_auth.LoginResult.OK:
 			validation_label.text = "¡Éxito! Entrando..."
-			# Esperamos un segundo para que el usuario vea el mensaje de éxito
-			await get_tree().create_timer(1.0).timeout
 			# Cambia esto por tu escena de juego real
 			get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+
+
+func back() -> void:
+	if Talo.current_player != null:
+		Talo.player_auth.logout()
+	
+	get_tree().change_scene_to_file("res://Menus/MainMenu/main_menu.tscn")
+	
