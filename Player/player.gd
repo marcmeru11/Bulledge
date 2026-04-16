@@ -41,15 +41,14 @@ func _physics_process(delta: float) -> void:
 func move(control_directions: Vector2, delta: float):
 	var direction = control_directions.normalized()
 	
-	if direction.x != 0:
-		velocity.x += acceleration * delta * direction.x
+	if direction != Vector2.ZERO:
+		if velocity.normalized().dot(direction) < 0:
+			velocity *= friction
+			
+		velocity += direction * acceleration * delta
+		velocity = velocity.limit_length(max_speed)
 	else:
-		velocity.x *= friction
-		
-	if direction.y != 0:
-		velocity.y += acceleration * delta * direction.y
-	else:
-		velocity.y *= friction
+		velocity *= friction
 
 func dash(control_directions: Vector2):
 	if Input.is_key_pressed(KEY_SPACE) or Input.is_action_just_pressed("ui_accept"):
