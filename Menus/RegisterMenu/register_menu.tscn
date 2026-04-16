@@ -54,11 +54,6 @@ layout_mode = 2
 theme = ExtResource("4_06ctc")
 placeholder_text = "Username"
 
-[node name="Email" type="LineEdit" parent="CanvasLayer/VBoxContainer" unique_id=1744947622]
-layout_mode = 2
-theme = ExtResource("4_06ctc")
-placeholder_text = "Email"
-
 [node name="Password" type="LineEdit" parent="CanvasLayer/VBoxContainer" unique_id=1697809506]
 layout_mode = 2
 theme = ExtResource("4_06ctc")

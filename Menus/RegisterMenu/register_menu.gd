@@ -18,7 +18,7 @@ func _on_back_pressed() -> void:
 	
 func _on_register_pressed() -> void:
 	# 1. Validaciones básicas
-	if username.text.is_empty() or password.text.is_empty() or email.text.is_empty():
+	if username.text.is_empty() or password.text.is_empty():
 		validation_label.text = "Rellena todos los campos"
 		return
 		
@@ -31,7 +31,7 @@ func _on_register_pressed() -> void:
 
 	# 2. Llamada a Talo (usando el formato que pasaste)
 	# Fíjate que añadimos 'false' al final para la verificación de email
-	var res = await Talo.player_auth.register(username.text, password.text, email.text, false)
+	var res = await Talo.player_auth.register(username.text, password.text, "", false)
 	
 	# 3. Manejo de respuesta
 	if res == OK:
