@@ -4,14 +4,15 @@ signal death
 
 var current_skin: SkinData 
 
-@export var friction: float = 0.9
-@export var acceleration: float = 750
-@export var max_speed: float = 1500
+@export var friction: float = 0.75
+@export var acceleration: float = 1000
+@export var max_speed: float = 1000
 @export var dash_active: bool = false
 @export var dash_cooldown: float = 1.0
 @export var teleport_distance: float = 200.0
 
-var dead = false
+var is_moving: bool = false
+var dead:bool = false
 var dash_available: bool = true
 
 @onready var dash_particles = $DashParticles
@@ -38,13 +39,15 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func move(control_directions: Vector2, delta: float):
-	if control_directions.x != 0:
-		velocity.x += acceleration * delta * control_directions.x
+	var direction = control_directions.normalized()
+	
+	if direction.x != 0:
+		velocity.x += acceleration * delta * direction.x
 	else:
 		velocity.x *= friction
 		
-	if control_directions.y != 0:
-		velocity.y += acceleration * delta * control_directions.y
+	if direction.y != 0:
+		velocity.y += acceleration * delta * direction.y
 	else:
 		velocity.y *= friction
 

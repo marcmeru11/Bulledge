@@ -21,7 +21,7 @@ func _on_register_pressed() -> void:
 	if username.text.is_empty() or password.text.is_empty():
 		validation_label.text = "Rellena todos los campos"
 		return
-		
+	
 	if password.text != password_confirmation.text:
 		validation_label.text = "Las contraseñas no coinciden"
 		return
