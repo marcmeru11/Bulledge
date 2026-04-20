@@ -56,6 +56,19 @@ jobs:
           mkdir -p build/web
           godot --headless --verbose --export-release "Web" build/web/index.html
 
+      - name: Install Node.js and Obfuscator
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+          apt-get install -y nodejs
+          npm install -g javascript-obfuscator
+
+      - name: Obfuscate JavaScript
+        run: |
+          # Ofuscamos el archivo JS principal que genera Godot
+          # Nota: Asegúrate de que el nombre coincida (normalmente es index.js)
+          javascript-obfuscator build/web/index.js --output build/web/index.js --compact true --self-defending true --string-array true --string-array-encoding 'rc4' --string-array-threshold 1
+      # ------------------------------
+
       - name: Add COOP/COEP headers and Favicon
         run: |
           # Download COOP/COEP worker for Godot 4
